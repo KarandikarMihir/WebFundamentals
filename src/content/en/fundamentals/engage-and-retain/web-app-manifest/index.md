@@ -12,11 +12,11 @@ description: The web app manifest is a JSON file that gives you the ability to c
 
 The [web app manifest](https://developer.mozilla.org/en-US/docs/Web/Manifest) is a simple JSON file that gives you, the developer, the ability to control how your app appears to the user in areas where they would expect to see apps (for example, a mobile device's home screen), direct what the user can launch, and define its appearance at launch.
 
-Web app manifests provide the ability to save a site bookmark to a device's home screen. When a site is launched this way: 
+Web app manifests provide the ability to save a site bookmark to a device's home screen. When a site is launched this way:
 
 * It has a unique icon and name so that users can distinguish it from other sites.
 * It displays something to the user while resources are downloaded or restored from cache.
-* It provides default display characterstics to the browser to avoid too abrupt transition when site resources become available. 
+* It provides default display characterstics to the browser to avoid too abrupt transition when site resources become available.
 
 It does all this through the simple mechanism of metadata in a text file. That's the web app manifest.
 
@@ -25,7 +25,7 @@ Note: Though you can use a web app manifest on any site, they are required for [
 ### TL;DR {: .hide-from-toc }
 - Creating a manifest and linking it to your page are straightforward processes.
 - Control what the user sees when launching from the home screen.
-- This includes things like a splash screen, theme colors, and even the URL that's opened. 
+- This includes things like a splash screen, theme colors, and even the URL that's opened.
 
 ## Create the manifest
 
@@ -57,13 +57,13 @@ You can call the manifest whatever you want. Most people use `manifest.json`. He
       ],
       "start_url": "index.html?launcher=true"
     }
-    
 
-Make sure to include the following: 
+
+Make sure to include the following:
 
 * A `short_name` for use as the text on the users home screen.  
 * A `name` for use in the Web App Install banner.  
-  
+
 
 ## Tell the browser about your manifest
 
@@ -72,18 +72,18 @@ a `link` tag to all the pages that encompass your web app, as follows:
 
 
     <link rel="manifest" href="/manifest.json">
-  
+
 ## Set a start URL
 
 If you don't provide a `start_url`, the current page is used, which
 is unlikely to be what your users want. But that's not the only reason to
 include it. Because you can now define how your app is launched, add a query
-string parameter to the `start_url` that indicates how it was launched. 
+string parameter to the `start_url` that indicates how it was launched.
 
     "start_url": "/?utm_source=homescreen"
 
 This can be anything you want; the value we're using has the advantage of being meaningful to Google Analytics.
- 
+
 
 ## Customize the icons
 
@@ -113,7 +113,7 @@ This can be anything you want; the value we're using has the advantage of being 
         "type": "image/png",
         "sizes": "192x192"
       }],
-    
+
 
 Note: When saving an icon to the home screen, Chrome first looks for icons that match the density of the display and are sized to 48dp screen density. If none are found, it searches for the icon that most closely matches the device characteristics. If, for whatever reason, you want be specific about targeting an icon at a particular pixel density, you can use the optional <code>density</code> member, which takes a number. When you don’t declare density, it defaults to 1.0. This means: “use this icon for screen densities 1.0 and up”, which is normally what you want.
 
@@ -127,23 +127,23 @@ Note: When saving an icon to the home screen, Chrome first looks for icons that 
 When you launch your web app from the home screen a number of things happen behind the
 scenes:
 
-1. Chrome launchs.
+1. Chrome launches.
 2. The renderer that displays the page starts up.
 3. Your site loads from the network (or from cache if it has a service worker).
 
 While this is happening the screen goes white and appears to be stalled.
-This is especially apparent if you are loading your web page from the network where it 
+This is especially apparent if you are loading your web page from the network where it
 takes more than one or two seconds for pages to become visible on the homepage.
 
-To provide a better user experience, you can replace the white screen with a title, color, and images. 
+To provide a better user experience, you can replace the white screen with a title, color, and images.
 
 ### Set an image and title
 
-If you've been following from the beginning, you've set an image and title already. Chrome infers the image and title from specific members of the manifest. What's important here is knowing the specifics. 
+If you've been following from the beginning, you've set an image and title already. Chrome infers the image and title from specific members of the manifest. What's important here is knowing the specifics.
 
 A splash screen image is drawn from the `icons` array. Chrome chooses the image that is closest to 128dp for the device. The title is simply pulled from the `name` member.
 
-### Set the background color 
+### Set the background color
 
 Specify background color using the appropriately named `background_color`
 property. Chrome uses this color the instant the web app is launched
@@ -153,7 +153,7 @@ To set the background color, set the following in your manifest:
 
 
     "background_color": "#2196F3",
-    
+
 
 Now, no white screen appears as your site is launched from the home screen.
 
@@ -182,13 +182,13 @@ You make your web app hide the browser's UI by setting the `display` type to `st
 
 
     "display": "standalone"
-    
+
 
 If you think users would prefer to view your page as a normal site in a browser, you can set the `display` type to `browser`:
 
 
     "display": "browser"
-    
+
 <div style="clear:both;"></div>
 
 ### Specify the initial orientation of the page
@@ -198,15 +198,15 @@ If you think users would prefer to view your page as a normal site in a browser,
   <figcaption>Web App Manifest Orientation Options</figcaption>
 </figure>
 
-You can enforce a specific orientation, which is advantageous for apps 
-that work in only one orientation, such as games for example. Use this 
+You can enforce a specific orientation, which is advantageous for apps
+that work in only one orientation, such as games for example. Use this
 selectively. Users prefer selecting the orientation.
 
 
     "orientation": "landscape"
 
 <div style="clear:both;"></div>
-    
+
 
 ## Provide a site-wide theme color
 
@@ -219,7 +219,7 @@ Chrome introduced the concept of a theme color for your site in 2014. The theme 
 is a hint from your web page that tells the browser what color to tint
 [UI elements such as the address bar](/web/fundamentals/design-and-ui/browser-customization/).  
 
-Without a manifest, you have to define the theme color on every single page, and if 
+Without a manifest, you have to define the theme color on every single page, and if
 you have a large site or legacy site, making a lot of site wide changes is not feasible.
 
 <div style="clear:both;"></div>
@@ -230,7 +230,7 @@ from the home screen every page in the domain will automatically get the theme c
 
 
     "theme_color": "#2196F3"
-    
+
 
 <figure>
   <img src="images/manifest-display-options.png" alt="backgroud color">
@@ -270,7 +270,7 @@ This article has given you a quick introduction to web app manifests, but
 there's more to learn.
 
 * If you're using a web app manifest, you'll probably want set up an
-[app install banner](/web/fundamentals/engage-and-retain/app-install-banners/) as well. 
+[app install banner](/web/fundamentals/engage-and-retain/app-install-banners/) as well.
 
 * [A complete reference](https://developer.mozilla.org/en-US/docs/Web/Manifest)
 to the web app manifest is available on the Mozilla Developer Network.
@@ -281,6 +281,3 @@ manifests, you can read the [actual W3C specification](http://www.w3.org/TR/appm
 Note: If you update your `manifest.json` file in the future, those changes won't
 be automatically picked up by the users unless they re-add your app to their
 home screen.
-
-
-
